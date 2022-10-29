@@ -7,13 +7,17 @@ type list []float64
 // arranged or grouped into interval classes. Grouped data is data that is
 // usually presented in the form of a frequency table and the data has been
 // compiled or grouped into interval classes.
-type SingleData struct {
+type singleData struct {
 	Data list // []float64
 }
 
+func GetSingleData(data list) *singleData {
+	return &singleData{data}
+}
+
 // GetMinMax Finding the smallest and largest values ​​from a single data array
-func (s SingleData) GetMinMax(data list) (min, max float64) {
-	for i, e := range data {
+func (s singleData) GetMinMax() (min, max float64) {
+	for i, e := range s.Data {
 		switch {
 		case i == 0:
 			max, min = e, e
@@ -28,7 +32,24 @@ func (s SingleData) GetMinMax(data list) (min, max float64) {
 
 // Range
 // Calculating the difference between the smallest and largest values
-func (s SingleData) Range(data list) float64 {
-	min, max := s.GetMinMax(data)
+func (s singleData) Range() float64 {
+	min, max := s.GetMinMax()
 	return max - min
+}
+
+// Sum The total number of elements of an array
+func (s singleData) Sum() float64 {
+	var result float64
+	for _, v := range s.Data {
+		result += v
+	}
+	return result
+}
+
+// Average Finding the average value of a single data
+func (s singleData) Average() float64 {
+	n := len(s.Data)
+	sum := s.Sum()
+
+	return sum / float64(n)
 }
