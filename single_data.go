@@ -11,7 +11,7 @@ type singleData struct {
 	Data list // []float64
 }
 
-func GetSingleData(data list) *singleData {
+func NewSingleData(data list) *singleData {
 	return &singleData{data}
 }
 
